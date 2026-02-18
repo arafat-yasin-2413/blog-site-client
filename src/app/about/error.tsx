@@ -15,3 +15,4 @@ export default function AboutError({ error, reset }: { error: Error & { digest?:
         </div>
     );
 }
+
