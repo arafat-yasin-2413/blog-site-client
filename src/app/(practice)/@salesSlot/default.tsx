@@ -1,7 +1,7 @@
 export default function SalesDefault() {
     return (
-        <div>
-            <h1>Sales  Default</h1>
+        <div className="size-200 border-2 border-amber-500">
+            <h1 className="text-2xl">This is a placeholder for sales</h1>
         </div>
     );
 }
