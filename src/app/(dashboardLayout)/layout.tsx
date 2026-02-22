@@ -8,9 +8,21 @@ import {
     BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { Separator } from "@/components/ui/separator";
-import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import {
+    SidebarInset,
+    SidebarProvider,
+    SidebarTrigger,
+} from "@/components/ui/sidebar";
 
-export default function DashboardLayout({ children }: { children: React.ReactNode }) {
+export default function DashboardLayout({
+    children,
+    admin,
+    user,
+}: {
+    children: React.ReactNode;
+    admin: React.ReactNode;
+    user: React.ReactNode;
+}) {
     return (
         <SidebarProvider>
             <AppSidebar />
@@ -24,7 +36,9 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                     <Breadcrumb>
                         <BreadcrumbList>
                             <BreadcrumbItem className="hidden md:block">
-                                <BreadcrumbLink href="#">Build Your Application</BreadcrumbLink>
+                                <BreadcrumbLink href="#">
+                                    Build Your Application
+                                </BreadcrumbLink>
                             </BreadcrumbItem>
                             <BreadcrumbSeparator className="hidden md:block" />
                             <BreadcrumbItem>
@@ -33,7 +47,10 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                         </BreadcrumbList>
                     </Breadcrumb>
                 </header>
-                <div className="flex flex-1 flex-col gap-4 p-4">{children}</div>
+                <div className="flex flex-1 flex-col gap-4 p-4">
+                    {admin}
+                    {user}
+                </div>
             </SidebarInset>
         </SidebarProvider>
     );
