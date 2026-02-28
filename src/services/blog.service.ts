@@ -9,7 +9,7 @@ const API_URL = env.API_URL;
 export const blogService = {
     getBlogPosts: async function () {
         try {
-            const res = await fetch(`${API_URL}/posts`, { next: {revalidate: 10} });
+            const res = await fetch(`${API_URL}/posts`);
 
             const data = await res.json();
 
