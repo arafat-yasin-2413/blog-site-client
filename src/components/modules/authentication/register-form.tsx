@@ -15,7 +15,9 @@ import {
     FieldLabel,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
+import { authClient } from "@/lib/auth-client";
 import { useForm } from "@tanstack/react-form";
+import { toast } from "sonner";
 import * as z from "zod";
 
 // zod schema
@@ -26,6 +28,15 @@ const formSchema = z.object({
 });
 
 export function RegisterForm({ ...props }: React.ComponentProps<typeof Card>) {
+    const handleGoogleLogin = async () => {
+        const data = authClient.signIn.social({
+            provider: "google",
+            callbackURL: "http://localhost:3000",
+        });
+
+        console.log(data);
+    };
+
     const form = useForm({
         defaultValues: {
             name: "",
@@ -36,7 +47,28 @@ export function RegisterForm({ ...props }: React.ComponentProps<typeof Card>) {
             onSubmit: formSchema,
         },
         onSubmit: async ({ value }) => {
-            console.log(value);
+            // const userData = {
+            //     name: value.name,
+            //     email: value.email,
+            //     password: value.password,
+            // }
+
+            const toastId = toast.loading("Creating user");
+
+            try {
+                const { data, error } = await authClient.signUp.email(value);
+
+                if (error) {
+                    toast.error(error.message, { id: toastId });
+                    return;
+                }
+
+                toast.success("User Created Successfully", { id: toastId });
+            } catch (err) {
+                toast.error("Something Went Wrong. Please Try Again", {
+                    id: toastId,
+                });
+            }
         },
     });
 
@@ -160,12 +192,19 @@ export function RegisterForm({ ...props }: React.ComponentProps<typeof Card>) {
                 </form>
             </CardContent>
 
-            <CardFooter className="flex justify-end">
+            <CardFooter className="flex flex-col gap-5 justify-end">
                 <Button
                     form="register-form"
-                    className="cursor-pointer"
+                    className="cursor-pointer w-full"
                     type="submit">
-                    Submit
+                    Register
+                </Button>
+                <Button
+                    onClick={() => handleGoogleLogin()}
+                    variant="outline"
+                    type="button"
+                    className="w-full">
+                    Continue with Google
                 </Button>
             </CardFooter>
         </Card>
