@@ -1,9 +1,9 @@
-import React from "react";
+import CreateBlogFormServer from "@/components/modules/user/createBlog/CreateBlogFormServer";
 
 export default function CreateBlogPage() {
     return (
         <div>
-            <h1>This is Create Blog Page </h1>
+            <CreateBlogFormServer></CreateBlogFormServer>
         </div>
     );
 }
