@@ -79,7 +79,7 @@ export function CreateBlogFormClient() {
     });
 
     return (
-        <Card>
+        <Card className="max-w-4xl mx-auto mt-10">
             <CardHeader>
                 <CardTitle>Create a Post</CardTitle>
                 <CardDescription>
