@@ -1,4 +1,5 @@
 "use client";
+import { createBlogPost } from "@/actions/blog.action";
 import { Button } from "@/components/ui/button";
 import {
     Card,
@@ -59,6 +60,15 @@ export function CreateBlogFormClient() {
 
             try {
                 //* POST LOGIC HERE
+
+                const res = await createBlogPost(blogData);
+
+                // console.log(res);
+                if (res.error) {
+                    toast.error(res.error.message, { id: toastId });
+                    return;
+                }
+
                 toast.success("Post Created Successfully", { id: toastId });
             } catch (err) {
                 toast.error("Something Went Wrong. Please Try Again", {
@@ -139,7 +149,8 @@ export function CreateBlogFormClient() {
                                                 field.handleChange(
                                                     e.target.value,
                                                 )
-                                            }placeholder="Write your blog"></Textarea>
+                                            }
+                                            placeholder="Write your blog"></Textarea>
 
                                         {isInvalid && (
                                             <FieldError
@@ -172,7 +183,8 @@ export function CreateBlogFormClient() {
                                                 field.handleChange(
                                                     e.target.value,
                                                 )
-                                            } placeholder="nextjs, web"></Input>
+                                            }
+                                            placeholder="nextjs, web"></Input>
 
                                         {isInvalid && (
                                             <FieldError
@@ -195,7 +207,6 @@ export function CreateBlogFormClient() {
                     type="submit">
                     Submit
                 </Button>
-                
             </CardFooter>
         </Card>
     );
